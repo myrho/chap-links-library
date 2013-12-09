@@ -3672,7 +3672,15 @@ links.Timeline.ItemBox.prototype.createDOM = function () {
     // contents box (inside the background box). used for making margins
     var divContent = document.createElement("DIV");
     divContent.className = "timeline-event-content";
-    divContent.innerHTML = this.content;
+    // update contents
+    if((typeof this.content ) !== "object")
+        divContent.innerHTML = this.content;
+    else {
+        var children = divContent.childNodes;
+        for( var c = 0; c < children.length; c++ )
+            divContent.removeChild(children[c]);
+        divContent.appendChild( this.content );
+    }
     divBox.appendChild(divContent);
 
     // line to axis
@@ -3757,7 +3765,14 @@ links.Timeline.ItemBox.prototype.updateDOM = function () {
         var divDot = divBox.dot;
 
         // update contents
-        divBox.firstChild.innerHTML = this.content;
+        if((typeof this.content ) !== "object")
+            divBox.firstChild.innerHTML = this.content;
+        else {
+            var children = divBox.firstChild.childNodes;
+            for( var c = 0; c < children.length; c++ )
+                divBox.firstChild.removeChild(children[c]);
+            divBox.firstChild.appendChild( this.content );
+        }
 
         // update class
         divBox.className = "timeline-event timeline-event-box ui-widget ui-state-default";
@@ -3988,7 +4003,14 @@ links.Timeline.ItemRange.prototype.updateDOM = function () {
     var divBox = this.dom;
     if (divBox) {
         // update contents
-        divBox.firstChild.innerHTML = this.content;
+        if((typeof this.content ) !== "object")
+            divBox.firstChild.innerHTML = this.content;
+        else {
+            var children = divBox.firstChild.childNodes;
+            for( var c = 0; c < children.length; c++ )
+                divBox.firstChild.removeChild(children[c]);
+            divBox.firstChild.appendChild( this.content );
+        }
 
         // update class
         divBox.className = "timeline-event timeline-event-range ui-widget ui-state-default";
@@ -4226,7 +4248,14 @@ links.Timeline.ItemDot.prototype.updateDOM = function () {
         var divDot = divBox.dot;
 
         // update contents
-        divBox.firstChild.innerHTML = this.content;
+        if((typeof this.content ) !== "object")
+            divBox.firstChild.innerHTML = this.content;
+        else {
+            var children = divBox.firstChild.childNodes;
+            for( var c = 0; c < children.length; c++ )
+                divBox.firstChild.removeChild(children[c]);
+            divBox.firstChild.appendChild( this.content );
+        }
 
         // update classes
         divBox.className = "timeline-event-dot-container";
