@@ -22,10 +22,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  *
- * Copyright © 2010-2012 Almende B.V.
+ * Copyright © 2010-2014 Almende B.V.
  *
- * @author Jos de Jong, <jos@almende.org>
- * @date   2013-04-18
+ * @author  Jos de Jong, <jos@almende.org>
+ * @date    2014-05-16
+ * @version 2.8.0
  */
 
 package com.chap.links.client;
@@ -126,6 +127,28 @@ public class Timeline extends Visualization<Timeline.Options> implements
 		 */
 		public final native void setMinHeight(int minHeight) /*-{
 			this.minHeight = minHeight;
+		}-*/;
+		
+		/**
+		 * Set the minimum group height for the timeline in pixels. Useful when height
+		 * is set to "auto".
+		 * 
+		 * @param groupMinHeight
+		 *            Minimum group height in pixels
+		 */
+		public final native void setGroupMinHeight(int groupMinHeight) /*-{
+			this.groupMinHeight = groupMinHeight;
+		}-*/;
+		
+		
+		/**
+		 * Set the stack order for the timeline.
+		 * 
+		 * @param customStackOrder
+		 *            Java script function of the form function (a, b)
+		 */
+		public final native void setCustomStackOrder(JavaScriptObject customStackOrder) /*-{
+			this.customStackOrder = customStackOrder;
 		}-*/;
 
 		/**

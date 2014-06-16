@@ -1738,7 +1738,7 @@ links.Network.prototype._createLink = function(properties) {
 
         index = this._findLink(id);
         if (index !== undefined) {
-            oldLink = this.links[id];
+            oldLink = this.links[index];
             link.from.detachLink(oldLink);
             link.to.detachLink(oldLink);
             this.links.splice(index, 1);
@@ -3280,8 +3280,14 @@ links.Network.Node.prototype.getDistance = function(x, y) {
  */
 links.Network.Node.prototype.setValueRange = function(min, max) {
     if (!this.radiusFixed && this.value !== undefined) {
-        var scale = (this.radiusMax - this.radiusMin) / (max - min);
-        this.radius = (this.value - min) * scale + this.radiusMin;
+        var diff = (max - min);
+        if (diff) {
+            var scale = (this.radiusMax - this.radiusMin) / diff;
+            this.radius = (this.value - min) * scale + this.radiusMin;
+        }
+        else {
+            this.radius = this.radiusMin;
+        }
     }
 };
 
@@ -4612,8 +4618,14 @@ links.Network.Package.prototype.getDistance = function(x, y) {
  */
 links.Network.Package.prototype.setValueRange = function(min, max) {
     if (!this.radiusFixed && this.value !== undefined) {
-        var factor = (this.radiusMax - this.radiusMin) / (max - min);
-        this.radius = (this.value - min) * factor + this.radiusMin;
+        var diff = (max - min);
+        if (diff) {
+            var factor = (this.radiusMax - this.radiusMin) / diff;
+            this.radius = (this.value - min) * factor + this.radiusMin;
+        }
+        else {
+            this.radius = this.radiusMin;
+        }
     }
 };
 
