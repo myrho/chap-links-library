@@ -3570,6 +3570,25 @@ links.Timeline.Item.prototype.unselect = function () {
 };
 
 /**
+ * Sets the content to the DOM. 
+ *
+ * If content is of type object, object is inserted as child.
+ */
+links.Timeline.Item.prototype.setDOMContent = function() {
+    var divBox = this.dom;
+    if( divBox ) {
+        if((typeof this.content ) !== "object") {
+            divBox.firstChild.innerHTML = this.content;
+        } else {
+            var children = divBox.firstChild.childNodes;
+            for( var c = 0; c < children.length; c++ )
+                divBox.firstChild.removeChild(children[c]);
+            divBox.firstChild.appendChild( this.content );
+        }
+    }
+}
+
+/**
  * Creates the DOM for the item, depending on its type
  * @return {Element | undefined}
  */
@@ -3749,15 +3768,6 @@ links.Timeline.ItemBox.prototype.createDOM = function () {
     // contents box (inside the background box). used for making margins
     var divContent = document.createElement("DIV");
     divContent.className = "timeline-event-content";
-    // update contents
-    if((typeof this.content ) !== "object")
-        divContent.innerHTML = this.content;
-    else {
-        var children = divContent.childNodes;
-        for( var c = 0; c < children.length; c++ )
-            divContent.removeChild(children[c]);
-        divContent.appendChild( this.content );
-    }
     divBox.appendChild(divContent);
 
     // line to axis
@@ -3842,14 +3852,7 @@ links.Timeline.ItemBox.prototype.updateDOM = function () {
         var divDot = divBox.dot;
 
         // update contents
-        if((typeof this.content ) !== "object")
-            divBox.firstChild.innerHTML = this.content;
-        else {
-            var children = divBox.firstChild.childNodes;
-            for( var c = 0; c < children.length; c++ )
-                divBox.firstChild.removeChild(children[c]);
-            divBox.firstChild.appendChild( this.content );
-        }
+        this.setDOMContent();
 
         // update class
         divBox.className = "timeline-event timeline-event-box ui-widget ui-state-default";
@@ -4101,14 +4104,7 @@ links.Timeline.ItemRange.prototype.updateDOM = function () {
     var divBox = this.dom;
     if (divBox) {
         // update contents
-        if((typeof this.content ) !== "object")
-            divBox.firstChild.innerHTML = this.content;
-        else {
-            var children = divBox.firstChild.childNodes;
-            for( var c = 0; c < children.length; c++ )
-                divBox.firstChild.removeChild(children[c]);
-            divBox.firstChild.appendChild( this.content );
-        }
+        this.setDOMContent();
 
         // update class
         divBox.className = "timeline-event timeline-event-range ui-widget ui-state-default";
@@ -4587,14 +4583,7 @@ links.Timeline.ItemDot.prototype.updateDOM = function () {
         var divDot = divBox.dot;
 
         // update contents
-        if((typeof this.content ) !== "object")
-            divBox.firstChild.innerHTML = this.content;
-        else {
-            var children = divBox.firstChild.childNodes;
-            for( var c = 0; c < children.length; c++ )
-                divBox.firstChild.removeChild(children[c]);
-            divBox.firstChild.appendChild( this.content );
-        }
+        this.setDOMContent();
 
         // update classes
         divBox.className = "timeline-event-dot-container";
